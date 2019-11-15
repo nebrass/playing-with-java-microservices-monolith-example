@@ -31,6 +31,18 @@ public class CartService {
         this.orderService = orderService;
     }
 
+    public static CartDto mapToDto(Cart cart) {
+        if (cart != null) {
+            return new CartDto(
+                    cart.getId(),
+                    cart.getOrder().getId(),
+                    cart.getCustomer().getId(),
+                    cart.getStatus().name()
+            );
+        }
+        return null;
+    }
+
     public List<CartDto> findAll() {
         log.debug("Request to get all Carts");
         return this.cartRepository.findAll()
@@ -96,17 +108,4 @@ public class CartService {
 
         return null;
     }
-
-    public static CartDto mapToDto(Cart cart) {
-        if (cart != null) {
-            return new CartDto(
-                    cart.getId(),
-                    cart.getOrder().getId(),
-                    CustomerService.mapToDto(cart.getCustomer()),
-                    cart.getStatus().name()
-            );
-        }
-        return null;
-    }
-
 }

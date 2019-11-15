@@ -27,6 +27,22 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
 
+    public static ProductDto mapToDto(Product product) {
+        if (product != null) {
+            return new ProductDto(
+                    product.getId(),
+                    product.getName(),
+                    product.getDescription(),
+                    product.getPrice(),
+                    product.getStatus().name(),
+                    product.getSalesCounter(),
+                    product.getReviews().stream().map(ReviewService::mapToDto).collect(Collectors.toSet()),
+                    product.getCategory().getName()
+            );
+        }
+        return null;
+    }
+
     public List<ProductDto> findAll() {
         log.debug("Request to get all Products");
         return this.productRepository.findAll()
@@ -59,21 +75,5 @@ public class ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         this.productRepository.deleteById(id);
-    }
-
-    public static ProductDto mapToDto(Product product) {
-        if (product != null) {
-            return new ProductDto(
-                    product.getId(),
-                    product.getName(),
-                    product.getDescription(),
-                    product.getPrice(),
-                    product.getStatus().name(),
-                    product.getSalesCounter(),
-                    product.getReviews().stream().map(ReviewService::mapToDto).collect(Collectors.toSet()),
-                    CategoryService.mapToDto(product.getCategory())
-            );
-        }
-        return null;
     }
 }

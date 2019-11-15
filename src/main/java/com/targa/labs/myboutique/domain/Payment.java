@@ -77,7 +77,7 @@ public class Payment extends AbstractEntity {
         return "Payment{" +
                 "paypalPaymentId='" + paypalPaymentId + '\'' +
                 ", status=" + status +
-                ", order=" + order +
+                ", order=" + order.getId() +
                 '}';
     }
 }

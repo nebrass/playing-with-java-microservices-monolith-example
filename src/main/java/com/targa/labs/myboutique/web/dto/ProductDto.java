@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.targa.labs.myboutique.web.dto;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
 /**
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public class ProductDto {
     private Long id;
@@ -19,7 +14,7 @@ public class ProductDto {
     private String status;
     private Integer salesCounter;
     private Set<ReviewDto> reviews;
-    private CategoryDto category;
+    private String category;
 
     public ProductDto() {
         // JACKSON
@@ -27,7 +22,7 @@ public class ProductDto {
 
     public ProductDto(Long id, String name, String description, BigDecimal price,
                       String status, Integer salesCounter,
-                      Set<ReviewDto> reviews, CategoryDto category) {
+                      Set<ReviewDto> reviews, String category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -94,11 +89,11 @@ public class ProductDto {
         this.reviews = reviews;
     }
 
-    public CategoryDto getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryDto category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 }

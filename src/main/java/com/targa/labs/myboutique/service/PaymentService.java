@@ -27,6 +27,18 @@ public class PaymentService {
         this.orderRepository = orderRepository;
     }
 
+    public static PaymentDto mapToDto(Payment payment) {
+        if (payment != null) {
+            return new PaymentDto(
+                    payment.getId(),
+                    payment.getPaypalPaymentId(),
+                    payment.getStatus().name(),
+                    payment.getOrder().getId()
+            );
+        }
+        return null;
+    }
+
     public List<PaymentDto> findAll() {
         log.debug("Request to get all Payments");
         return this.paymentRepository.findAll()
@@ -58,17 +70,5 @@ public class PaymentService {
     public void delete(Long id) {
         log.debug("Request to delete Payment : {}", id);
         this.paymentRepository.deleteById(id);
-    }
-
-    public static PaymentDto mapToDto(Payment payment) {
-        if (payment != null) {
-            return new PaymentDto(
-                    payment.getId(),
-                    payment.getPaypalPaymentId(),
-                    payment.getStatus().name(),
-                    payment.getOrder().getId()
-            );
-        }
-        return null;
     }
 }

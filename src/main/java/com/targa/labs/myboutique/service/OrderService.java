@@ -27,6 +27,21 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public static OrderDto mapToDto(Order order) {
+        if (order != null) {
+            return new OrderDto(
+                    order.getId(),
+                    order.getTotalPrice(),
+                    order.getStatus().name(),
+                    order.getShipped(),
+                    PaymentService.mapToDto(order.getPayment()),
+                    AddressService.mapToDto(order.getShipmentAddress()),
+                    order.getOrderItems().stream().map(OrderItemService::mapToDto).collect(Collectors.toSet())
+            );
+        }
+        return null;
+    }
+
     public List<OrderDto> findAll() {
         log.debug("Request to get all Orders");
         return this.orderRepository.findAll()
@@ -83,21 +98,5 @@ public class OrderService {
     public void delete(Long id) {
         log.debug("Request to delete Order : {}", id);
         this.orderRepository.deleteById(id);
-    }
-
-
-    public static OrderDto mapToDto(Order order) {
-        if (order != null) {
-            return new OrderDto(
-                    order.getId(),
-                    order.getTotalPrice(),
-                    order.getStatus().name(),
-                    order.getShipped(),
-                    PaymentService.mapToDto(order.getPayment()),
-                    AddressService.mapToDto(order.getShipmentAddress()),
-                    order.getOrderItems().stream().map(OrderItemService::mapToDto).collect(Collectors.toSet())
-            );
-        }
-        return null;
     }
 }

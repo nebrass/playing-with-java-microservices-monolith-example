@@ -1,9 +1,8 @@
 package com.targa.labs.myboutique.domain.enumeration;
 
 /**
- *
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public enum CartStatus {
-    NEW, CANCELED, CONFIRMED;
+    NEW, CANCELED, CONFIRMED
 }

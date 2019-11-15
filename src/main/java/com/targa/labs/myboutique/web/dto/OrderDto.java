@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.targa.labs.myboutique.web.dto;
 
 import java.math.BigDecimal;
@@ -10,8 +5,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 /**
- *
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public class OrderDto {
     private Long id;

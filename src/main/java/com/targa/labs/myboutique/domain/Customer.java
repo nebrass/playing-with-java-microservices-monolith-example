@@ -114,7 +114,7 @@ public class Customer extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, telephone, carts, enabled);
+        return Objects.hash(firstName, lastName, email, telephone, enabled);
     }
 
     @Override
@@ -124,7 +124,6 @@ public class Customer extends AbstractEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", carts=" + carts +
                 ", enabled=" + enabled +
                 '}';
     }

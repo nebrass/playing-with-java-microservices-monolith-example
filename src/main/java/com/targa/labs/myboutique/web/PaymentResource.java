@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.targa.labs.myboutique.web;
 
 import com.targa.labs.myboutique.service.PaymentService;
@@ -14,7 +9,7 @@ import java.util.List;
 import static com.targa.labs.myboutique.common.Web.API;
 
 /**
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 @RestController
 @RequestMapping(API + "/payments")

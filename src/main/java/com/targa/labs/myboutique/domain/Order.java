@@ -36,7 +36,7 @@ public class Order extends AbstractEntity {
     @Embedded
     private Address shipmentAddress;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<OrderItem> orderItems;
 
@@ -132,7 +132,7 @@ public class Order extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(totalPrice, status, shipped, payment, shipmentAddress, orderItems, cart);
+        return Objects.hash(totalPrice, status, shipped, payment, shipmentAddress, cart);
     }
 
     @Override
@@ -143,8 +143,7 @@ public class Order extends AbstractEntity {
                 ", shipped=" + shipped +
                 ", payment=" + payment +
                 ", shipmentAddress=" + shipmentAddress +
-                ", orderItems=" + orderItems +
-                ", cart=" + cart +
+                ", cart=" + cart.getId() +
                 '}';
     }
 }

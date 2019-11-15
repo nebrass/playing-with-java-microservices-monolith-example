@@ -22,6 +22,18 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    public static ReviewDto mapToDto(Review review) {
+        if (review != null) {
+            return new ReviewDto(
+                    review.getId(),
+                    review.getTitle(),
+                    review.getDescription(),
+                    review.getRating()
+            );
+        }
+        return null;
+    }
+
     public List<ReviewDto> findAll() {
         log.debug("Request to get all Reviews");
         return this.reviewRepository.findAll()
@@ -50,17 +62,5 @@ public class ReviewService {
     public void delete(Long id) {
         log.debug("Request to delete Review : {}", id);
         this.reviewRepository.deleteById(id);
-    }
-
-    public static ReviewDto mapToDto(Review review) {
-        if (review != null) {
-            return new ReviewDto(
-                    review.getId(),
-                    review.getTitle(),
-                    review.getDescription(),
-                    review.getRating()
-            );
-        }
-        return null;
     }
 }

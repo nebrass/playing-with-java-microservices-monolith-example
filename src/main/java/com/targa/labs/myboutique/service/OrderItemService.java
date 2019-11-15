@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 @Transactional
 public class OrderItemService {
@@ -32,6 +31,18 @@ public class OrderItemService {
         this.orderItemRepository = orderItemRepository;
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
+    }
+
+    public static OrderItemDto mapToDto(OrderItem orderItem) {
+        if (orderItem != null) {
+            return new OrderItemDto(
+                    orderItem.getId(),
+                    orderItem.getQuantity(),
+                    orderItem.getProduct().getId(),
+                    orderItem.getOrder().getId()
+            );
+        }
+        return null;
     }
 
     public List<OrderItemDto> findAll() {
@@ -66,17 +77,4 @@ public class OrderItemService {
         log.debug("Request to delete OrderItem : {}", id);
         this.orderItemRepository.deleteById(id);
     }
-
-    public static OrderItemDto mapToDto(OrderItem orderItem) {
-        if (orderItem != null) {
-            return new OrderItemDto(
-                    orderItem.getId(),
-                    orderItem.getQuantity(),
-                    orderItem.getProduct().getId(),
-                    orderItem.getOrder().getId()
-            );
-        }
-        return null;
-    }
-
 }

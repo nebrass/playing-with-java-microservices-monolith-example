@@ -24,6 +24,18 @@ public class CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    public static CategoryDto mapToDto(Category category) {
+        if (category != null) {
+            return new CategoryDto(
+                    category.getId(),
+                    category.getName(),
+                    category.getDescription(),
+                    category.getProducts().size()
+            );
+        }
+        return null;
+    }
+
     public List<CategoryDto> findAll() {
         log.debug("Request to get all Categories");
         return this.categoryRepository.findAll()
@@ -53,17 +65,5 @@ public class CategoryService {
     public void delete(Long id) {
         log.debug("Request to delete Category : {}", id);
         this.categoryRepository.deleteById(id);
-    }
-
-    public static CategoryDto mapToDto(Category category) {
-        if (category != null) {
-            return new CategoryDto(
-                    category.getId(),
-                    category.getName(),
-                    category.getDescription(),
-                    category.getProducts().stream().map(ProductService::mapToDto).collect(Collectors.toSet())
-            );
-        }
-        return null;
     }
 }

@@ -1,26 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.targa.labs.myboutique.web.dto;
 
-import java.util.Set;
-
 /**
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public class CategoryDto {
     private Long id;
     private String name;
     private String description;
-    private Set<ProductDto> products;
+    private Integer products;
 
     public CategoryDto() {
         // JACKSON
     }
 
-    public CategoryDto(Long id, String name, String description, Set<ProductDto> products) {
+    public CategoryDto(Long id, String name, String description, Integer products) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -51,11 +44,11 @@ public class CategoryDto {
         this.description = description;
     }
 
-    public Set<ProductDto> getProducts() {
+    public Integer getProducts() {
         return products;
     }
 
-    public void setProducts(Set<ProductDto> products) {
+    public void setProducts(Integer products) {
         this.products = products;
     }
 }

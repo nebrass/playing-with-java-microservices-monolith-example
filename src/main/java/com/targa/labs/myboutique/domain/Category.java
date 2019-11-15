@@ -75,7 +75,7 @@ public class Category extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, products);
+        return Objects.hash(name, description);
     }
 
     @Override
@@ -83,7 +83,6 @@ public class Category extends AbstractEntity {
         return "Category{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", products=" + products +
                 '}';
     }
 }

@@ -77,13 +77,13 @@ public class Cart extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(order, customer, status);
+        return Objects.hash(customer, status);
     }
 
     @Override
     public String toString() {
         return "Cart{" +
-                "order=" + order +
+                "order=" + order.getId() +
                 ", customer=" + customer +
                 ", status=" + status +
                 '}';

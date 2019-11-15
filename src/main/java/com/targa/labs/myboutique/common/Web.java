@@ -1,8 +1,7 @@
 package com.targa.labs.myboutique.common;
 
 /**
- *
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public class Web {
     public static final String API = "/api";

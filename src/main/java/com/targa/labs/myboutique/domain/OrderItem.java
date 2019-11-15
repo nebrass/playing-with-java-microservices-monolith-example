@@ -77,8 +77,7 @@ public class OrderItem extends AbstractEntity {
     public String toString() {
         return "OrderItem{" +
                 "quantity=" + quantity +
-                ", product=" + product +
-                ", order=" + order +
+                ", product=" + product.getName() +
                 '}';
     }
 }

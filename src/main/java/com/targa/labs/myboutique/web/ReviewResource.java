@@ -9,7 +9,7 @@ import java.util.List;
 import static com.targa.labs.myboutique.common.Web.API;
 
 /**
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 @RestController
 @RequestMapping(API + "/reviews")

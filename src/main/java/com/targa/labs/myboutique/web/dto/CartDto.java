@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.targa.labs.myboutique.web.dto;
 
 /**
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 public class CartDto {
     private Long id;
     private Long orderId;
-    private CustomerDto customerDto;
+    private Long customerDto;
     private String status;
 
     public CartDto() {
         // JACKSON
     }
 
-    public CartDto(Long id, Long orderId, CustomerDto customerDto, String status) {
+    public CartDto(Long id, Long orderId, Long customerDto, String status) {
         this.id = id;
         this.orderId = orderId;
         this.customerDto = customerDto;
@@ -41,11 +36,11 @@ public class CartDto {
         this.orderId = orderId;
     }
 
-    public CustomerDto getCustomerDto() {
+    public Long getCustomerDto() {
         return customerDto;
     }
 
-    public void setCustomerDto(CustomerDto customerDto) {
+    public void setCustomerDto(Long customerDto) {
         this.customerDto = customerDto;
     }
 

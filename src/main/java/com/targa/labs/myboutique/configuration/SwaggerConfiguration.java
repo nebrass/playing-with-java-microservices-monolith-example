@@ -8,8 +8,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
 /**
- *
- * @author n.lamouchi
+ * @author Nebrass Lamouchi
  */
 @Configuration
 public class SwaggerConfiguration {
