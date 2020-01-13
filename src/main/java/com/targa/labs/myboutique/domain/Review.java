@@ -1,5 +1,9 @@
 package com.targa.labs.myboutique.domain;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -9,12 +13,15 @@ import java.util.Objects;
 /**
  * A Review.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review extends AbstractEntity {
 
     @NotNull
-    @Column(name = "text", nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
     @NotNull
@@ -25,37 +32,9 @@ public class Review extends AbstractEntity {
     @Column(name = "rating", nullable = false)
     private Long rating;
 
-    public Review() {
-        // JPA
-    }
-
     public Review(@NotNull String title, @NotNull String description, @NotNull Long rating) {
         this.title = title;
         this.description = description;
-        this.rating = rating;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getRating() {
-        return rating;
-    }
-
-    public void setRating(Long rating) {
         this.rating = rating;
     }
 

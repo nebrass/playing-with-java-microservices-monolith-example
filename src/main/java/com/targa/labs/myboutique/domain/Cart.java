@@ -1,6 +1,9 @@
 package com.targa.labs.myboutique.domain;
 
 import com.targa.labs.myboutique.domain.enumeration.CartStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,15 +12,14 @@ import java.util.Objects;
 /**
  * A Cart.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "cart")
+@Table(name = "carts")
 public class Cart extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Order order;
 
     @ManyToOne
     private Customer customer;
@@ -31,37 +33,8 @@ public class Cart extends AbstractEntity {
         this.status = CartStatus.NEW;
     }
 
-    public Cart() {
-        // JPA
-    }
-
-    public Cart(Order order, Customer customer, @NotNull CartStatus status) {
-        this.order = order;
+    public Cart(Customer customer, @NotNull CartStatus status) {
         this.customer = customer;
-        this.status = status;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public CartStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(CartStatus status) {
         this.status = status;
     }
 
@@ -70,8 +43,7 @@ public class Cart extends AbstractEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return Objects.equals(order, cart.order) &&
-                Objects.equals(customer, cart.customer) &&
+        return Objects.equals(customer, cart.customer) &&
                 status == cart.status;
     }
 
@@ -83,8 +55,7 @@ public class Cart extends AbstractEntity {
     @Override
     public String toString() {
         return "Cart{" +
-                "order=" + order.getId() +
-                ", customer=" + customer +
+                "customer=" + customer +
                 ", status=" + status +
                 '}';
     }

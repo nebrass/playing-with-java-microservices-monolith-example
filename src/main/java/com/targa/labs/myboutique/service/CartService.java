@@ -2,7 +2,6 @@ package com.targa.labs.myboutique.service;
 
 import com.targa.labs.myboutique.domain.Cart;
 import com.targa.labs.myboutique.domain.Customer;
-import com.targa.labs.myboutique.domain.Order;
 import com.targa.labs.myboutique.domain.enumeration.CartStatus;
 import com.targa.labs.myboutique.repository.CartRepository;
 import com.targa.labs.myboutique.repository.CustomerRepository;
@@ -35,7 +34,6 @@ public class CartService {
         if (cart != null) {
             return new CartDto(
                     cart.getId(),
-                    cart.getOrder().getId(),
                     cart.getCustomer().getId(),
                     cart.getStatus().name()
             );
@@ -58,23 +56,24 @@ public class CartService {
                 .collect(Collectors.toList());
     }
 
-    public CartDto create(Long customerId) {
+    public Cart create(Long customerId) {
         if (this.getActiveCart(customerId) == null) {
             Customer customer = this.customerRepository.findById(customerId)
                     .orElseThrow(() -> new IllegalStateException("The Customer does not exist!"));
 
             Cart cart = new Cart(
-                    null,
                     customer,
                     CartStatus.NEW
             );
-            Order order = this.orderService.create(cart);
-            cart.setOrder(order);
 
-            return mapToDto(this.cartRepository.save(cart));
+            return this.cartRepository.save(cart);
         } else {
             throw new IllegalStateException("There is already an active cart");
         }
+    }
+
+    public CartDto createDto(Long customerId) {
+        return mapToDto(this.create(customerId));
     }
 
     @Transactional(readOnly = true)

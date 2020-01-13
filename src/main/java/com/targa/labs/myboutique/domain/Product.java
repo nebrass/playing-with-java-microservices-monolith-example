@@ -2,6 +2,9 @@ package com.targa.labs.myboutique.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.targa.labs.myboutique.domain.enumeration.ProductStatus;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -13,8 +16,11 @@ import java.util.Set;
 /**
  * A Product.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 public class Product extends AbstractEntity {
 
     @NotNull
@@ -42,11 +48,8 @@ public class Product extends AbstractEntity {
     private Set<Review> reviews = new HashSet<>();
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
-
-    public Product() {
-        // JPA
-    }
 
     public Product(@NotNull String name, @NotNull String description, @NotNull BigDecimal price,
                    Integer salesCounter, Set<Review> reviews, Category category) {
@@ -66,62 +69,6 @@ public class Product extends AbstractEntity {
         this.status = status;
         this.salesCounter = salesCounter;
         this.reviews = reviews;
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public ProductStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ProductStatus status) {
-        this.status = status;
-    }
-
-    public Integer getSalesCounter() {
-        return salesCounter;
-    }
-
-    public void setSalesCounter(Integer salesCounter) {
-        this.salesCounter = salesCounter;
-    }
-
-    public Set<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(Set<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
         this.category = category;
     }
 

@@ -1,6 +1,7 @@
 package com.targa.labs.myboutique.service;
 
 import com.targa.labs.myboutique.domain.Product;
+import com.targa.labs.myboutique.domain.Review;
 import com.targa.labs.myboutique.domain.enumeration.ProductStatus;
 import com.targa.labs.myboutique.repository.CategoryRepository;
 import com.targa.labs.myboutique.repository.ProductRepository;
@@ -37,7 +38,7 @@ public class ProductService {
                     product.getStatus().name(),
                     product.getSalesCounter(),
                     product.getReviews().stream().map(ReviewService::mapToDto).collect(Collectors.toSet()),
-                    product.getCategory().getName()
+                    product.getCategory().getId()
             );
         }
         return null;
@@ -68,8 +69,17 @@ public class ProductService {
                         ProductStatus.valueOf(productDto.getStatus()),
                         productDto.getSalesCounter(),
                         Collections.emptySet(),
-                        categoryRepository.findById(productDto.getId()).orElse(null)
+                        categoryRepository.findById(productDto.getCategoryId()).orElse(null)
                 )));
+    }
+
+    public ProductDto addReview(Long productId, Review review) {
+        Product product = this.productRepository
+                .findById(productId)
+                .orElseThrow(() -> new IllegalStateException("The Product does not exist!"));
+        product.getReviews().add(review);
+        this.productRepository.saveAndFlush(product);
+        return mapToDto(product);
     }
 
     public void delete(Long id) {

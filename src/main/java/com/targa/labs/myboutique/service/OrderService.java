@@ -1,10 +1,12 @@
 package com.targa.labs.myboutique.service;
 
+import com.targa.labs.myboutique.domain.Address;
 import com.targa.labs.myboutique.domain.Cart;
 import com.targa.labs.myboutique.domain.Order;
 import com.targa.labs.myboutique.domain.enumeration.OrderStatus;
 import com.targa.labs.myboutique.repository.OrderRepository;
 import com.targa.labs.myboutique.web.dto.OrderDto;
+import com.targa.labs.myboutique.web.dto.OrderItemDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,14 +32,21 @@ public class OrderService {
 
     public static OrderDto mapToDto(Order order) {
         if (order != null) {
+
+            Set<OrderItemDto> orderItems = order
+                    .getOrderItems()
+                    .stream()
+                    .map(OrderItemService::mapToDto)
+                    .collect(Collectors.toSet());
+
             return new OrderDto(
                     order.getId(),
                     order.getTotalPrice(),
                     order.getStatus().name(),
                     order.getShipped(),
-                    PaymentService.mapToDto(order.getPayment()),
+                    order.getPayment().getId(),
                     AddressService.mapToDto(order.getShipmentAddress()),
-                    order.getOrderItems().stream().map(OrderItemService::mapToDto).collect(Collectors.toSet())
+                    orderItems
             );
         }
         return null;
@@ -72,7 +82,7 @@ public class OrderService {
                                 OrderStatus.CREATION,
                                 null,
                                 null,
-                                null,
+                                AddressService.createFromDto(orderDto.getShipmentAddress()),
                                 Collections.emptySet(),
                                 null
                         )
@@ -80,7 +90,7 @@ public class OrderService {
         );
     }
 
-    public Order create(Cart cart) {
+    public Order create(Cart cart, Address address) {
         log.debug("Request to create Order with a Cart : {}", cart);
         return this.orderRepository.save(
                 new Order(
@@ -88,7 +98,7 @@ public class OrderService {
                         OrderStatus.CREATION,
                         null,
                         null,
-                        null,
+                        address,
                         Collections.emptySet(),
                         cart
                 )

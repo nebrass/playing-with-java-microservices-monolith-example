@@ -1,6 +1,9 @@
 package com.targa.labs.myboutique.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +16,11 @@ import java.util.Set;
 /**
  * A Customer.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer extends AbstractEntity {
 
     @Column(name = "first_name")
@@ -37,10 +43,6 @@ public class Customer extends AbstractEntity {
     @Column(name = "enabled", nullable = false)
     private Boolean enabled;
 
-    public Customer() {
-        // JPA
-    }
-
     public Customer(String firstName, String lastName, @Email String email,
                     String telephone, Set<Cart> carts, Boolean enabled) {
         this.firstName = firstName;
@@ -48,54 +50,6 @@ public class Customer extends AbstractEntity {
         this.email = email;
         this.telephone = telephone;
         this.carts = carts;
-        this.enabled = enabled;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public Set<Cart> getCarts() {
-        return carts;
-    }
-
-    public void setCarts(Set<Cart> carts) {
-        this.carts = carts;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 

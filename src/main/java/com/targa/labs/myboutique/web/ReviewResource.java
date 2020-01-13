@@ -33,7 +33,7 @@ public class ReviewResource {
 
     @PostMapping
     public ReviewDto create(@RequestBody ReviewDto reviewDto) {
-        return this.reviewService.create(reviewDto);
+        return this.reviewService.createDto(reviewDto);
     }
 
     @DeleteMapping("/{id}")

@@ -61,16 +61,30 @@ public class OrderItemService {
 
     public OrderItemDto create(OrderItemDto orderItemDto) {
         log.debug("Request to create OrderItem : {}", orderItemDto);
-        Order order = this.orderRepository.findById(orderItemDto.getOrderId()).orElseThrow(() -> new IllegalStateException("The Order does not exist!"));
-        Product product = this.productRepository.findById(orderItemDto.getProductId()).orElseThrow(() -> new IllegalStateException("The Product does not exist!"));
+        Order order =
+                this.orderRepository
+                        .findById(orderItemDto.getOrderId())
+                        .orElseThrow(() -> new IllegalStateException("The Order does not exist!"));
 
-        return mapToDto(
-                this.orderItemRepository.save(
-                        new OrderItem(
-                                orderItemDto.getQuantity(),
-                                product,
-                                order
-                        )));
+        Product product =
+                this.productRepository
+                        .findById(orderItemDto.getProductId())
+                        .orElseThrow(() -> new IllegalStateException("The Product does not exist!"));
+
+        OrderItem orderItem = this.orderItemRepository.save(
+                new OrderItem(
+                        orderItemDto.getQuantity(),
+                        product,
+                        order
+                ));
+
+        order.setTotalPrice(
+                order.getTotalPrice().add(orderItem.getProduct().getPrice())
+        );
+
+        this.orderRepository.save(order);
+
+        return mapToDto(orderItem);
     }
 
     public void delete(Long id) {

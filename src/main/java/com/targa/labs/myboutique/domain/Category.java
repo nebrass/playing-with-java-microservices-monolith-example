@@ -1,6 +1,9 @@
 package com.targa.labs.myboutique.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +16,11 @@ import java.util.Set;
 /**
  * A Category.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category extends AbstractEntity {
 
     @NotNull
@@ -29,37 +35,9 @@ public class Category extends AbstractEntity {
     @JsonIgnore
     private Set<Product> products;
 
-    public Category() {
-        // JPA
-    }
-
     public Category(@NotNull String name, @NotNull String description, Set<Product> products) {
         this.name = name;
         this.description = description;
-        this.products = products;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 

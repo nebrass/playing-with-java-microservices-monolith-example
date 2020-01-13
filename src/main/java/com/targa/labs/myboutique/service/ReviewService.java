@@ -48,15 +48,19 @@ public class ReviewService {
         return this.reviewRepository.findById(id).map(ReviewService::mapToDto).orElse(null);
     }
 
-    public ReviewDto create(ReviewDto reviewDto) {
+    public ReviewDto createDto(ReviewDto reviewDto) {
         log.debug("Request to create Review : {}", reviewDto);
-        return mapToDto(this.reviewRepository.save(
+        return mapToDto(create(reviewDto));
+    }
+
+    public Review create(ReviewDto reviewDto) {
+        return this.reviewRepository.save(
                 new Review(
                         reviewDto.getTitle(),
                         reviewDto.getDescription(),
                         reviewDto.getRating()
                 )
-        ));
+        );
     }
 
     public void delete(Long id) {

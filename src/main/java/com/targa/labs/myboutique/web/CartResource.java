@@ -43,7 +43,7 @@ public class CartResource {
 
     @PostMapping("/customer/{id}")
     public CartDto create(@PathVariable("id") Long customerId) {
-        return this.cartService.create(customerId);
+        return this.cartService.createDto(customerId);
     }
 
     @DeleteMapping("/{id}")

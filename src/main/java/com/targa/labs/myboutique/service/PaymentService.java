@@ -50,13 +50,19 @@ public class PaymentService {
     @Transactional(readOnly = true)
     public PaymentDto findById(Long id) {
         log.debug("Request to get Payment : {}", id);
-        return this.paymentRepository.findById(id).map(PaymentService::mapToDto).orElse(null);
+        return this.paymentRepository
+                .findById(id)
+                .map(PaymentService::mapToDto)
+                .orElse(null);
     }
 
     public PaymentDto create(PaymentDto paymentDto) {
         log.debug("Request to create Payment : {}", paymentDto);
 
-        Order order = this.orderRepository.findById(paymentDto.getOrderId()).orElseThrow(() -> new IllegalStateException("The Order does not exist!"));
+        Order order =
+                this.orderRepository
+                        .findById(paymentDto.getOrderId())
+                        .orElseThrow(() -> new IllegalStateException("The Order does not exist!"));
 
         return mapToDto(this.paymentRepository.save(
                 new Payment(
